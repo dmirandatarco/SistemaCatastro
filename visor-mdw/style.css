@@ -1,0 +1,27 @@
+@import "node_modules/leaflet/dist/leaflet.css";
+
+body {
+  padding: 0;
+  margin: 0;
+  }
+  
+  html, body, #map {
+  height: 100%;
+  overflow-x:hidden;
+  }
+  
+  .info { padding: 6px 8px; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } 
+  .info h4 { margin: 0 0 5px; color: #777; }
+  .legend { text-align: left; line-height: 18px; color: #555; 
+    display: block;
+    width: 250px;
+    /*height: 370px;*/
+    float: left;
+    font-size: 90%;
+    /*overflow-y:scroll;*/
+    -webkit-overflow-scrolling: touch; /* Lets it scroll lazy */
+    -webkit-overflow-scrolling: auto; /* Stops scrolling immediately */
+  } 
+  .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.9; }
+  .label {font-weight: 700;text-transform: uppercase;text-align: center;margin-top: -1em;color: #fff}
+  .label div {position: relative;left: -50%}

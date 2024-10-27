@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <link rel="icon" href="./assets/img/favicon.ico" type="image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="description" content="Responsive HTML Admin Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="NobleUI">
+	<meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<title>Visor catastral | MDW - Cusco</title>
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	<!-- End fonts -->
+
+	<!-- core:css -->
+	<link rel="stylesheet" href="./assets/vendors/core/core.css">
+	<!-- endinject -->
+
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="./assets/vendors/flatpickr/flatpickr.min.css">
+	<!-- End plugin css for this page -->
+
+	<!-- inject:css -->
+	<link rel="stylesheet" href="./assets/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="./assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
+
+	<!-- endinject -->
+
+	<!-- Layout styles -->  
+	<link rel="stylesheet" href="./assets/css/demo1/style.css">
+	<link rel="stylesheet" href="./assets/css/select2.min.css">
+	<link rel="stylesheet" href="./assets/css/leaflet-navbar.css">
+	<link rel="stylesheet" href="./assets/css/leaflet-easy-button.css">
+	<link rel="stylesheet" href="./assets/css/leaflet-minimap.min.css">
+	<link rel="stylesheet" href="./assets/css/leaflet-mouse-position.css">
+	<!-- End layout styles -->
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:900,300" rel="stylesheet" type="text/css">	
+</head>
+<body>
+	<div class="main-wrapper">
+		<!-- partial:partials/_sidebar.html -->
+		<nav class="sidebar">
+			<div class="sidebar-header">
+				<a href="#" class="sidebar-brand"> Visor<span> Catastral</span></a>
+				<div class="sidebar-toggler not-active">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			<div class="sidebar-body">
+				<ul class="nav">
+					<li class="nav-item nav-category">Principal</li>
+
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#capas_base" role="button" aria-expanded="false" aria-controls="capas_base">
+							<i class="link-icon" data-feather="layers"></i>
+							<span class="link-title">Capas base</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse" id="capas_base">
+							<ul class="nav sub-menu">
+								<li class="nav-item">
+									<div class="form-check mb-2">
+									  <input type="radio" class="form-radio-input" name="base" id="osm" checked=true>
+									  <label class="form-check-label" for="base1">OpenStreetMap</label>
+									</div>
+								</li>
+								<li class="nav-item">
+								<div class="form-check mb-2">
+									<input type="radio" class="form-radio-input" name="base" id="esri_satelite">
+									<label class="form-check-label" for="base1">Esri Satélite</label>
+								</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#limite_administrativos" role="button" aria-expanded="false" aria-controls="limite_administrativos">
+							<i class="link-icon" data-feather="layers"></i>
+							<span class="link-title">Límite administrativos</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse" id="limite_administrativos">
+							<ul class="nav sub-menu">
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+									<input type="checkbox" class="form-check-input" id="limite_provincial" checked="true">
+									<label class="form-check-label" for="base2">Límite provincial</label>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+									<input type="checkbox" class="form-check-input" id="limite_distrital" checked="true">
+									<label class="form-check-label" for="base2">Límite distrital</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					
+					<li class="nav-item nav-category">Catastro predial</li>
+					<li class="nav-item active">
+						<a class="nav-link" data-bs-toggle="collapse" href="#capas_tematicas" role="button" aria-expanded="false" aria-controls="capas_tematicas">
+							<i class="link-icon" data-feather="layers"></i>
+							<span class="link-title">Predios urbanos</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse show" id="capas_tematicas">
+							<ul class="nav sub-menu">
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="sectores" checked="true">
+										<label class="form-check-label" for="base3">Sectores</label>
+										<button id="propiedades_sector" type="button" class="btn btn-primary btn-icon btn-xs" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: right;"><i data-feather="settings"></i></button>
+										<div class="dropdown-menu" aria-labelledby="propiedades_sector">
+											<a class="dropdown-item" name="1"><i data-feather="trending-up"></i> Mostrar estadística</a>
+											<a class="dropdown-item" name="2"><i data-feather="filter"></i> Filtrar</a>
+											<a class="dropdown-item" name="3"><i data-feather="download"></i> Descargar capa</a>
+										</div>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="manzanas">
+										<label class="form-check-label" for="base3">Manzanas</label>
+										<!--<button id="propiedades_manzana" type="button" class="btn btn-primary btn-icon btn-xs" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: right;"><i data-feather="settings"></i></button>
+										<div class="dropdown-menu" id="lista_sector" aria-labelledby="propiedades_manzana">
+											<a class="dropdown-item" href="#"><i data-feather="trending-up"></i> Mostrar estadística</a>
+											<a class="dropdown-item" href="#"><i data-feather="filter"></i> Filtrar</a>
+											<a class="dropdown-item" href="#"><i data-feather="download"></i> Descargar capa</a>
+										</div>-->
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="lotes">
+										<label class="form-check-label" for="base3">Lotes<br><br></label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_lotes" id="filtro_lotes" disabled="true"><i data-feather="filter"></i></button>
+									</div> 
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="habilitacion_urbana">
+										<label class="form-check-label" for="base3">Habilitación <br>Urbana</label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_habilitacion_urbana" id="filtro_habilitacion_urbana" disabled="true"><i data-feather="filter"></i></button>
+									</div>
+								</li>
+								<!--<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="servicio_basicos">
+										<label class="form-check-label" for="base3">Servicios <br>básicos</label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_servicio_basicos" id="filtro_servicio_basicos" disabled="true"><i data-feather="filter"></i></button>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="clasificacion_predio">
+										<label class="form-check-label" for="base3">Clasificación <br>de predio</label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_clasificacion_predio" id="filtro_clasificacion_predio" disabled="true"><i data-feather="filter"></i>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="tipo_persona">
+										<label class="form-check-label" for="base3">Tipo de <br>persona</label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_tipo_persona" id="filtro_tipo_persona" disabled="true"><i data-feather="filter"></i></button>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+									<input type="checkbox" class="form-check-input" id="area_terreno_comun">
+									<label class="form-check-label" for="base3">Área de <br>terreno común</label>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="edificaciones">
+										<label class="form-check-label" for="base3">Edificaciones</label>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="puerta">
+										<label class="form-check-label" for="base3">Puerta</label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_puerta" id="filtro_puerta" disabled="true"><i data-feather="filter"></i></button>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="pisos">
+										<label class="form-check-label" for="base3">Pisos</label>
+										<button type="button" class="btn btn-icon btn-xs" style="float: right;" data-bs-toggle="modal" data-bs-target="#ficha_pisos" id="filtro_pisos" disabled="true"><i data-feather="filter"></i></button>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="servidumbre">
+										<label class="form-check-label" for="base3">Servidumbre</label>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="area_invadida">
+										<label class="form-check-label" for="base3">Área invadida</label>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="comercio">
+										<label class="form-check-label" for="base3">Comercio</label>
+									</div>
+								</li>
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="parques">
+										<label class="form-check-label" for="base3">Parques</label>
+									</div>
+								</li>-->
+							</ul>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#areas_circulacion" role="button" aria-expanded="false" aria-controls="areas_circulacion">
+							<i class="link-icon" data-feather="layers"></i>
+							<span class="link-title">Áreas de circulación</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse" id="areas_circulacion">
+							<ul class="nav sub-menu">
+							<li class="nav-item">
+								<div class="form-check form-switch mb-2">
+								<input type="checkbox" class="form-check-input" id="eje_via">
+								<label class="form-check-label" for="base4">Eje de vía</label>
+								</div>
+							</li>
+							</ul>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#capas_institucional" role="button" aria-expanded="false" aria-controls="capas_institucional">
+							<i class="link-icon" data-feather="layers"></i>
+							<span class="link-title">Capas institucionales</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse" id="capas_institucional">
+							<ul class="nav sub-menu">
+								<li class="nav-item">
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="predios_sbn">
+										<label class="form-check-label" for="base4">Predios SBN</label>
+									</div>
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="predio_rural_midagri">
+										<label class="form-check-label" for="base4">Predio rural MIDAGRI</label>
+									</div>
+									<div class="form-check form-switch mb-2">
+										<input type="checkbox" class="form-check-input" id="comunidades_campesinas_midagri">
+										<label class="form-check-label" for="base4">Comunidades Campesinas MIDAGRI</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		
+		<!-- partial -->
+		<div class="page-wrapper">
+			<div class="page-content">				
+				<div class="row">
+					<div class="col-14 col-xl-12 grid-margin stretch-card">
+						<div class="card overflow-hidden">
+							<div class="card-body" style="height: 98vh;" id="map"></div>
+						</div>
+					</div>
+				</div>	
+
+				<div class="modal fade" id="ficha_lotes" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" ><i data-feather="filter"></i> Filtro por lotes</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label class="form-label"><strong>Mostrar lotes por:</strong></label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" id="con_ficha_lotes" class="form-check-input">
+											<label class="form-check-label">Con ficha catastral</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#646B63">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" id="sin_ficha_lotes" class="form-check-input">
+											<label class="form-check-label">Sin ficha catastral</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#FF6600">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+								<div class="mb-3">
+									<label class="form-label"><i data-feather="search"></i><strong>Buscar por DNI y/o RUC:</strong></label>
+									<div>
+										<input type="number" class="form-control" id="dni_ruc" placeholder="D.N.I. y/o R.U.C" onKeyDown="if(this.value.length==11 && event.keyCode!=8) return false;">
+									</div>
+								</div>
+								<div class="mb-3" id="mensaje_dni_ruc"></div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_lotes">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+	  
+				<div class="modal fade" id="ficha_bloques" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" ><i data-feather="filter"></i> Filtro por bloques</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body" id="formulario_bloques">
+								<div class="mb-3">
+									<label class="form-label">Mostrar por niveles:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Nivel 1</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00aa00">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Nivel 2</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00bb00">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Nivel 3</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00cc00">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Nivel 4</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00dd00">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Nivel 5</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00ee00">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Nivel 6</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00ff00">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_bloques">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+	  
+				<div class="modal fade" id="ficha_habilitacion_urbana" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" ><i data-feather="filter"></i> Filtro por habilitación urbana</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label class="form-label">Mostrar por tipo:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" id="formal" class="form-check-input">
+											<label class="form-check-label">Formal </label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#70CFFF">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" id="informal" class="form-check-input">
+											<label class="form-check-label">Informal</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#FF6600">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_habilitacion_urbana">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="ficha_servicio_basicos" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"><i data-feather="filter"></i> Filtro por servicio básicos</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body" id="formulario_servicios_basicos">
+								<div class="mb-3">
+									<label class="form-label">Mostrar por:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Luz&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#01579B">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Agua&nbsp;&nbsp;&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#17B0E4">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Teléfono&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#59595C">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Desague&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#00005A">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Gas&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#81815C">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Intenet&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#8081B1">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Tv cable&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#BE2D00">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_servicio_basicos">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="ficha_clasificacion_predio" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"><i data-feather="filter"></i> Filtro por clasificación de predio</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body" id="formulario_clasificacion_predio">
+								<div class="mb-3">
+									<label class="form-label">Mostrar por:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Casa habitación&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#073763">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Tienda - Depósito - almacen&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#0b5394">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Predio en edificación&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#3d85c6">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Otros&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#6fa8dc">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Terreno sin construcción&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#9fc5e8">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_clasificacion_predio">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="ficha_tipo_persona" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" ><i data-feather="filter"></i> Filtro por tipo de persona</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label class="form-label">Mostrar por tipo de persona:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" id="persona_natural" class="form-check-input">
+											<label class="form-check-label">Persona natural </label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#3BC500">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" id="persona_juridica" class="form-check-input">
+											<label class="form-check-label">Persona jurídica</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#005700">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_tipo_persona">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="ficha_puerta" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" ><i data-feather="filter"></i> Filtro por tipo de puerta</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body" id="formulario_puerta">
+								<div class="mb-3">
+									<label class="form-label">Tipo:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Principal</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#00FFFF">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Secundario</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#FFFF00">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">Garaje</label>&nbsp;<span class="badge fw-bolder ms-auto" style="background:#FF00FF">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+								<!--<div class="mb-3">
+									<label class="form-label"> BCP</label>
+									<select class="js-example-basic-multiple form-control" id="bcp" multiple="multiple" data-width="100%">
+										<option value="TX">01</option>
+										<option value="WY">02</option>
+										<option value="NY">03</option>
+										<option value="FL">04</option>
+										<option value="KN">05</option>
+										<option value="HW">06</option>
+									</select>
+								</div>-->
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_puerta">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="ficha_pisos" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"><i data-feather="filter"></i> Filtro por pisos</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+							</div>
+							<div class="modal-body" id="formulario_pisos">
+								<div class="mb-3">
+									<label class="form-label">Mostrar por:</label>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">01&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#300067">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">02&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#600067">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">03&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#900067">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">04&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#d01bcd">&nbsp;</span>
+										</div>
+									</div>
+									<div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">05&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#9a0c94">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">06&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#740075">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">07&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#5c005b">&nbsp;</span>
+										</div>
+										<div class="form-check form-check-inline">
+											<input type="checkbox" class="form-check-input">
+											<label class="form-check-label">08&nbsp;&nbsp;</label><span class="badge fw-bolder ms-auto" style="background:#420042">&nbsp;</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary" id="mostrar_pisos">Mostrar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+	  
+				<div id="div1" style="display:none;">
+					<div class="row" style="position: fixed;z-index: 999;top: 100px;right: 35px;justify-content: right;">
+						<div class="col-12 col-md-12 col-xl-12">
+							<div class="card center">
+								<div id="chart"></div>              
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- partial:partials/_footer.html -->
+			<footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between px-4 py-3 border-top small">
+				<p class="text-muted"><i class="mb-1 text-primary ms-1 icon-sm" data-feather="map"></i> Visor catastral</p>
+				<p class="text-muted">© <strong>Municipalidad Distrital de Wanchaq</strong>| Oficina de Catastro | Proyecto "Mejoramiento del servicio de información Catastro Urbano Municipal, en el distrito de Wanchaq, Provincia y Departamento de Cusco."</p>
+			</footer>
+			<!-- partial -->		
+		</div>
+	</div>
+
+	<!-- core:js -->
+	<script type="module" type="text/javascript" src="./assets/vendors/core/core.js"></script>
+	<!-- endinject -->
+
+	<!-- Plugin js for this page -->
+	<script type="module" type="text/javascript" src="./assets/vendors/flatpickr/flatpickr.min.js"></script>
+	<script type="module" type="text/javascript" src="./assets/vendors/apexcharts/apexcharts.min.js"></script>
+	<!-- End plugin js for this page -->
+
+	<!-- inject:js -->
+	<script type="module" type="text/javascript" src="./assets/vendors/feather-icons/feather.min.js"></script>
+	<script type="module" type="text/javascript" src="./assets/js/template.js"></script>
+	<!-- endinject -->
+
+	<!-- Custom js for this page -->
+	<script type="module" type="text/javascript" src="./assets/js/dashboard-light.js"></script>
+	<!-- End custom js for this page -->
+
+	<script type="module" type="text/javascript" src="./assets/js/leaflet-button.js"></script>
+	<script type="module" type="text/javascript" src="./assets/js/leaflet-utm.js"></script>
+	<script type="module" type="text/javascript" src="./assets/js/leaflet-navbar.js"></script>
+	<script type="module" type="text/javascript" src="./assets/js/leaflet-mouseposition.js"></script>
+	<script type="module" type="text/javascript" src="./assets/js/leaflet-easy-button.js"></script>
+	<script type="module" type="text/javascript" src="./assets/js/leaflet-minimap.min.js"></script>
+	<!--<script type="module" type="text/javascript" src="./assets/js/leaflet-print.js"></script>-->
+	<script type="module" type="text/javascript" src="./assets/js/bundle.js"></script>
+	<script type="module" type="text/javascript" src="./main.js"></script>
+</body>
+</html>
